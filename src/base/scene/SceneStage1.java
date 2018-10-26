@@ -3,6 +3,7 @@ package base.scene;
 import base.Background;
 import base.GameObject;
 import base.Settings;
+import base.enemy.EnemyType1;
 import base.player.Tank;
 import base.wall.Wall;
 
@@ -18,7 +19,11 @@ public class SceneStage1 extends Scene {// khoi tao doi tuong o day
         GameObject.recycle(Background.class);
         this.tank = GameObject.recycle(Tank.class);
         tank.position.set(280,308);
-        System.out.println("tank : "+tank.position);
+
+        this.enemyType1 = GameObject.recycle(EnemyType1.class);
+        enemyType1.position.set(Settings.WAY_SIZE*5, Settings.WAY_SIZE*5);
+
+//        System.out.println("tank : "+tank.position);
        /*for(int i =0 ; i< 2 ; i++){
            Wall wall = GameObject.recycle(Wall.class);
            wall.position.set(154 + Settings.WAY_SIZE, 70 + Settings.WAY_SIZE);// 168 - 84 : meo hiu sao phai tru di 0.5.wayzize

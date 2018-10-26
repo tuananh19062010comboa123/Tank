@@ -1,5 +1,6 @@
 package base.scene;
 
+import base.enemy.EnemyType1;
 import base.player.Tank;
 
 public abstract class Scene {
@@ -7,6 +8,7 @@ public abstract class Scene {
   //  public SnackManager snackManager;
 
     public Tank tank;
+    public EnemyType1 enemyType1;
     public abstract void destroy();
 
     public abstract void init();
