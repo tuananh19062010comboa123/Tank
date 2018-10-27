@@ -37,14 +37,21 @@ public class Tank extends GameObject implements Physics {
             this.currentX = this.position.x;
             this.currentY = this.position.y;
         }
-
         if (KeyEventPress.isUpPress) {
+            BufferedImage imageDown = SpriteUtils.loadImage("assets/tank_image/tank2.PNG");
+            ((SingleImageRenderer) this.renderer).image = imageDown;
             this.position.addThis(0.0F, -4.0F);
         } else if (KeyEventPress.isDownPress) {
+            BufferedImage imageDown = SpriteUtils.loadImage("assets/tank_image/tank2_down.PNG");
+            ((SingleImageRenderer) this.renderer).image = imageDown;
             this.position.addThis(0.0F, 4.0F);
         } else if (KeyEventPress.isLeftPress) {
+            BufferedImage imageDown = SpriteUtils.loadImage("assets/tank_image/tank2_left.PNG");
+            ((SingleImageRenderer) this.renderer).image = imageDown;
             this.position.addThis(-4.0F, 0.0F);
         } else if (KeyEventPress.isRightPress) {
+            BufferedImage imageDown = SpriteUtils.loadImage("assets/tank_image/tank2_right.PNG");
+            ((SingleImageRenderer) this.renderer).image = imageDown;
             this.position.addThis(4.0F, 0.0F);
         }
 
