@@ -1,35 +1,38 @@
+
+
 package base.enemy;
 
-import base.*;
+import base.GameObject;
+import base.Vector2D;
 import base.physics.BoxCollider;
 import base.physics.Physics;
+import base.player.Tank;
 import base.renderer.SingleImageRenderer;
 import tklibs.SpriteUtils;
 
 public class EnemyBullet extends GameObject implements Physics {
     BoxCollider collider;
     Vector2D velocity;
-    int damage;
+    public int damage;
 
     public EnemyBullet() {
         this.renderer = new SingleImageRenderer(SpriteUtils.loadImage("assets/bullets/blue.png"));
-        this.position = new Vector2D(0, 0);
+        this.position = new Vector2D(0.0F, 0.0F);
         this.collider = new BoxCollider(16, 16);
-        this.velocity = new Vector2D(0, 8);
+        this.velocity = new Vector2D(0.0F, 8.0F);
         this.damage = 4;
     }
 
-    @Override
     public void run() {
         this.position.addThis(this.velocity);
-//        Player player = GameObject.intersect(Player.class, this);
-//        if(player != null) {
-//            player.takeDamage(this.damage);
-//            this.destroy();
-//        }
+        Tank tank = (Tank)GameObject.intersect(Tank.class, this);
+        if (tank != null) {
+            tank.takeDamage(this.damage);
+            this.destroy();
+        }
+
     }
 
-    @Override
     public BoxCollider getBoxCollider() {
         return this.collider;
     }

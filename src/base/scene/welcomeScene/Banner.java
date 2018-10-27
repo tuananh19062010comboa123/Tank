@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
 public class Banner extends GameObject {// quang thoi gian welcoameScenee ton tai
     public Banner(){
         super();
-        BufferedImage image = SpriteUtils.loadImage("assets/image.jpg");
+        BufferedImage image = SpriteUtils.loadImage("assets/spaceinvader.png");
         this.renderer = new SingleImageRenderer(image);
         this.position.set(Settings.SCREEN_WIDHT / 2 , Settings.SCREEN_HEIGHT / 2);
     }
