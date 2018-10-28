@@ -22,6 +22,7 @@ public class Tank extends GameObject implements Physics {
     Vector2D velocity;
     float currentX = 0.0F;
     float currentY = 0.0F;
+    boolean[] way = new boolean[]{false,false,false,false};//up down left right
 
     public Tank() {
         BufferedImage image = SpriteUtils.loadImage("assets/tank_image/tank2.PNG");
@@ -33,39 +34,45 @@ public class Tank extends GameObject implements Physics {
     }
 
     public void run() {
+
+
         if (!this.checkIntersects()) {
             this.currentX = this.position.x;
             this.currentY = this.position.y;
         }
+        //
         if (KeyEventPress.isUpPress) {
-            BufferedImage imageDown = SpriteUtils.loadImage("assets/tank_image/tank2.PNG");
-            ((SingleImageRenderer) this.renderer).image = imageDown;
+            BufferedImage imageUp = SpriteUtils.loadImage("assets/tank_image/tank2.PNG");
+            ((SingleImageRenderer) this.renderer).image = imageUp;
             this.position.addThis(0.0F, -4.0F);
+            this.way=new boolean[]{true,false,false,false};
         } else if (KeyEventPress.isDownPress) {
             BufferedImage imageDown = SpriteUtils.loadImage("assets/tank_image/tank2_down.PNG");
             ((SingleImageRenderer) this.renderer).image = imageDown;
             this.position.addThis(0.0F, 4.0F);
+            this.way=new boolean[]{false,true,false,false};
         } else if (KeyEventPress.isLeftPress) {
-            BufferedImage imageDown = SpriteUtils.loadImage("assets/tank_image/tank2_left.PNG");
-            ((SingleImageRenderer) this.renderer).image = imageDown;
+            BufferedImage imageLeft = SpriteUtils.loadImage("assets/tank_image/tank2_left.PNG");
+            ((SingleImageRenderer) this.renderer).image = imageLeft;
             this.position.addThis(-4.0F, 0.0F);
+            this.way=new boolean[]{false,false,true,false};
         } else if (KeyEventPress.isRightPress) {
-            BufferedImage imageDown = SpriteUtils.loadImage("assets/tank_image/tank2_right.PNG");
-            ((SingleImageRenderer) this.renderer).image = imageDown;
+            BufferedImage imageRight = SpriteUtils.loadImage("assets/tank_image/tank2_right.PNG");
+            ((SingleImageRenderer) this.renderer).image = imageRight;
             this.position.addThis(4.0F, 0.0F);
+            this.way=new boolean[]{false,false,false,true};
         }
 
         boolean fireCounterRun = this.fireCounter.run();
         if (KeyEventPress.isFirePress && fireCounterRun) {
             this.fire();
         }
-
         this.position.addThis(this.velocity);
+
         if (this.checkIntersects()) {
             this.position.x = this.currentX;
             this.position.y = this.currentY;
         }
-
     }
 
     private boolean checkIntersects() {
@@ -75,10 +82,25 @@ public class Tank extends GameObject implements Physics {
     }
 
     private void fire() {
-        PlayBulletType1 bullet = (PlayBulletType1)GameObject.recycle(PlayBulletType1.class);
-        bullet.velocity.set(0.0F, -10.0F);
-        bullet.position.set(this.position.x, this.position.y - (float)Settings.WAY_SIZE);
-        this.fireCounter.reset();
+        PlayBulletType1 bullet = (PlayBulletType1) GameObject.recycle(PlayBulletType1.class);
+
+        if(this.way[0])
+            bullet.velocity.set(0, -10);
+        else if(this.way[1])
+            bullet.velocity.set(0, 10);
+        else if(this.way[2])
+            bullet.velocity.set(-10, 0);
+        else if(this.way[3])
+            bullet.velocity.set(10,0);
+        else{
+            bullet.velocity.set(0, -10);
+        }
+        bullet.position.set(this.position.x, this.position.y - (float) Settings.WAY_SIZE);
+            this.fireCounter.reset();
+    }
+
+    public void setPositionBullet(){
+
     }
 
     public void move(int velocityX, int velocityY) {
