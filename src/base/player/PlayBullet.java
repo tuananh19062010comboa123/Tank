@@ -6,6 +6,7 @@
 package base.player;
 
 import base.GameObject;
+import base.Settings;
 import base.Vector2D;
 import base.enemy.Enemy;
 import base.physics.BoxCollider;
@@ -26,9 +27,10 @@ public class PlayBullet extends GameObject implements Physics {
         if (enemy != null) {
             enemy.takeDamage(this.damage);
             this.hitEnemy();
-        } else if (this.position.y < 0.0F) {
+        } else if (this.position.y < 0 || this.position.y > Settings.SCREEN_HEIGHT ||
+                this.position.x < 0 || this.position.x > Settings.SCREEN_WIDHT) {
             this.destroy();
-        } else {
+        } else if (this.isActive == true) {
             this.position.addThis(this.velocity);
         }
     }

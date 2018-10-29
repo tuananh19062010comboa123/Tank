@@ -3,6 +3,7 @@
 package base.enemy;
 
 import base.GameObject;
+import base.Settings;
 import base.Vector2D;
 import base.physics.BoxCollider;
 import base.physics.Physics;
@@ -19,7 +20,7 @@ public class EnemyBullet extends GameObject implements Physics {
         this.renderer = new SingleImageRenderer(SpriteUtils.loadImage("assets/bullets/blue.png"));
         this.position = new Vector2D(0.0F, 0.0F);
         this.collider = new BoxCollider(16, 16);
-        this.velocity = new Vector2D(0.0F, 8.0F);
+        this.velocity = new Vector2D(0.0F, 0.0F);
         this.damage = 4;
     }
 
@@ -30,7 +31,11 @@ public class EnemyBullet extends GameObject implements Physics {
             tank.takeDamage(this.damage);
             this.destroy();
         }
-
+        if(this.position.y < 0 || this.position.y > Settings.SCREEN_HEIGHT ||
+            this.position.x < 0 || this.position.x > Settings.SCREEN_WIDHT) {
+            this.destroy();
+            return;
+        }
     }
 
     public BoxCollider getBoxCollider() {

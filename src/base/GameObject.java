@@ -65,6 +65,7 @@ public class GameObject {
         gameObjects.addAll(newGameObjects);
         newGameObjects.clear();
         SceneManager.changeSceneIfNeeded();
+        System.out.println("Size cua Pool: " + gameObjects.size());
     }
 
     public static void renderAllToBackBuffer() {

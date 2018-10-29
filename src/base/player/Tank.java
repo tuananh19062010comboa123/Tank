@@ -85,26 +85,25 @@ public class Tank extends GameObject implements Physics {
         PlayBulletType1 bullet = (PlayBulletType1) GameObject.recycle(PlayBulletType1.class);
 
         if(this.way[0]) {
-            bullet.velocity.set(0, -10);
+            bullet.velocity.set(0, -8);
             bullet.position.set(this.position.x, this.position.y - (float) Settings.WAY_SIZE);
         }
         else if(this.way[1]) {
-            bullet.velocity.set(0, 10);
+            bullet.velocity.set(0, 8);
             bullet.position.set(this.position.x, this.position.y + (float) Settings.WAY_SIZE);
         }
         else if(this.way[2]) {
-            bullet.velocity.set(-10, 0);
+            bullet.velocity.set(-8, 0);
             bullet.position.set(this.position.x -(float) Settings.WAY_SIZE , this.position.y);
         }
         else if(this.way[3]) {
-            bullet.velocity.set(10, 0);
+            bullet.velocity.set(8, 0);
             bullet.position.set(this.position.x + (float) Settings.WAY_SIZE, this.position.y);
         }
         else {
             bullet.velocity.set(0, -10);
             bullet.position.set(this.position.x, this.position.y - (float) Settings.WAY_SIZE);
         }
-
             this.fireCounter.reset();
     }
 

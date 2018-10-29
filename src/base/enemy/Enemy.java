@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class Enemy extends GameObject implements Physics {
     BoxCollider collider;
     Action action;
+    static boolean[] way = new boolean[]{false,false,false,false};//up down left right
 
     public Enemy() {
         super();
@@ -54,13 +55,7 @@ public class Enemy extends GameObject implements Physics {
     }
 
     public void move(){
-        if(this.position.y == Settings.WAY_SIZE*20){
-            Settings.ENEMY_MOVE = -4;
-        }
-        else if(this.position.y == Settings.WAY_SIZE*5){
-            Settings.ENEMY_MOVE = 4;
-        }
-        this.position.addThis(0, Settings.ENEMY_MOVE);
+
         //System.out.println(Setting.ENEMY_MOVE + " " + this.position.x);
     }
 
@@ -71,7 +66,22 @@ public class Enemy extends GameObject implements Physics {
 
     public void fire() {
         EnemyBullet bullet = GameObject.recycle(EnemyBullet.class);
-        bullet.position.set(this.position.x, this.position.y + Settings.WAY_SIZE);
+        if(this.way[0]) {
+            bullet.velocity.set(0, -8);
+            bullet.position.set(this.position.x, this.position.y - (float) Settings.WAY_SIZE);
+        }
+        else if(this.way[1]) {
+            bullet.velocity.set(0, 8);
+            bullet.position.set(this.position.x, this.position.y + (float) Settings.WAY_SIZE);
+        }
+        else if(this.way[2]) {
+            bullet.velocity.set(-8, 0);
+            bullet.position.set(this.position.x -(float) Settings.WAY_SIZE , this.position.y);
+        }
+        else if(this.way[3]) {
+            bullet.velocity.set(8, 0);
+            bullet.position.set(this.position.x + (float) Settings.WAY_SIZE, this.position.y);
+        }
     }
 
     public void takeDamage(int damage) {
