@@ -11,8 +11,10 @@ import base.event.KeyEventPress;
 import base.physics.BoxCollider;
 import base.physics.Physics;
 import base.renderer.SingleImageRenderer;
-import base.wall.Wall;
+import base.wall.*;
+
 import java.awt.image.BufferedImage;
+
 import tklibs.SpriteUtils;
 
 public class Tank extends GameObject implements Physics {
@@ -23,8 +25,10 @@ public class Tank extends GameObject implements Physics {
     float currentX = 0.0F;
     float currentY = 0.0F;
     boolean[] way = new boolean[]{false,false,false,false};//up down left right
+    WallManagement arr;
 
     public Tank() {
+        arr= new WallManagement( );;
         BufferedImage image = SpriteUtils.loadImage("assets/tank_image/tank2.PNG");
         this.position = new Vector2D((float)Settings.START_PLAYER_POSITION_X, (float)Settings.START_PLAYER_POSITION_Y);
         this.renderer = new SingleImageRenderer(image);
@@ -36,7 +40,7 @@ public class Tank extends GameObject implements Physics {
     public void run() {
 
 
-        if (!this.checkIntersects()) {
+        if (!this.checkIntersects() || !this.checkIntersectsWall()) {
             this.currentX = this.position.x;
             this.currentY = this.position.y;
         }
@@ -69,16 +73,28 @@ public class Tank extends GameObject implements Physics {
         }
         this.position.addThis(this.velocity);
 
-        if (this.checkIntersects()) {
+        if (this.checkIntersects()|| this.checkIntersectsWall()) {
             this.position.x = this.currentX;
             this.position.y = this.currentY;
         }
     }
 
     private boolean checkIntersects() {
-        Wall wall = (Wall)GameObject.intersect(Wall.class, this);
         Enemy enemy = (Enemy)GameObject.intersect(Enemy.class, this);
-        return wall != null || enemy != null;
+        return   enemy != null;
+    }
+    private boolean checkIntersectsWall(){
+        for (GameObject i :
+                arr) {
+            if(i instanceof Brick || i instanceof Stone || i instanceof Water){
+                Brick brick = (Brick)GameObject.intersect(Brick.class, this);
+                Stone stone = (Stone)GameObject.intersect(Stone.class, this);
+                Water water = (Water)GameObject.intersect(Water.class, this);
+                return brick!=null || stone!=null || water!=null;
+            }
+
+        }
+        return false;
     }
 
     private void fire() {

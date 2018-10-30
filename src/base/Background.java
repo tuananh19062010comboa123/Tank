@@ -1,6 +1,7 @@
 package base;
 
 import base.renderer.SingleImageRenderer;
+import base.wall.Forest;
 import tklibs.SpriteUtils;
 
 import java.awt.*;
@@ -57,38 +58,35 @@ public class Background extends GameObject {
 
     @Override
     public void render(Graphics g) {
-        BufferedImage imageGack = SpriteUtils.loadImage("assets/maps/item_built_map/BricksOrig.png");
-        BufferedImage imageDa = SpriteUtils.loadImage("assets/maps/item_built_map/ConcreteOrig.png");
-        BufferedImage imageRung = SpriteUtils.loadImage("assets/maps/item_built_map/ForestOrig.png");
-        BufferedImage imageWater = SpriteUtils.loadImage("assets/maps/item_built_map/WaterOrig.png");
-        super.render(g);
-        for (int row = 0; row < mapHeight; row++) {
-            for (int col = 0; col < mapWidth; col++) {
-                int rc = map[row][col];
-                if (rc == 0) {
-                    g.fillRect( col * tileSize,  row * tileSize, tileSize, tileSize);
-                   // g.setColor(Color.BLACK);
-                }
-                if (rc == 1) {
-                   // g.setColor(Color.blue);
-                    g.drawImage(imageGack, col * tileSize,row * tileSize,null);
-                }
-                if (rc == 2) {
-                    // g.setColor(Color.blue);
-                    g.drawImage(imageDa, col * tileSize,row * tileSize,null);
-                }
-                if (rc == 3) {
-                    // g.setColor(Color.blue);
-                    g.drawImage(imageRung, col * tileSize,row * tileSize,null);
-                }
-                if (rc == 5) {
-                    // g.setColor(Color.blue);
-                    g.drawImage(imageWater, col * tileSize,row * tileSize,null);
-                }
 
-               // g.fillRect( col * tileSize,  row * tileSize, tileSize, tileSize);
-            }
-        }
+        super.render(g);
+//        for (int row = 0; row < mapHeight; row++) {
+//            for (int col = 0; col < mapWidth; col++) {
+//                int rc = map[row][col];
+////                if (rc == 0) {
+////                    g.fillRect( col * tileSize,  row * tileSize, tileSize, tileSize);
+////                   // g.setColor(Color.BLACK);
+////                }
+//                if (rc == 1) {
+//                   // g.setColor(Color.blue);
+//                    g.drawImage(imageGack, col * tileSize,row * tileSize,null);
+//                }
+//                if (rc == 2) {
+//                    // g.setColor(Color.blue);
+//                    g.drawImage(imageDa, col * tileSize,row * tileSize,null);
+//                }
+//                if (rc == 3) {
+//                    // g.setColor(Color.blue);
+//                    g.drawImage(imageRung, col * tileSize,row * tileSize,null);
+//                }
+//                if (rc == 5) {
+//                    // g.setColor(Color.blue);
+//                    g.drawImage(imageWater, col * tileSize,row * tileSize,null);
+//                }
+//
+//               // g.fillRect( col * tileSize,  row * tileSize, tileSize, tileSize);
+//            }
+//        }
     }
 
 }
