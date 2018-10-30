@@ -30,7 +30,7 @@ public class Tank extends GameObject implements Physics {
         this.renderer = new SingleImageRenderer(image);
         this.velocity = new Vector2D(0.0F, 0.0F);
         this.fireCounter = new FrameCounter(10);
-        this.collider = new BoxCollider(56, 56);
+        this.collider = new BoxCollider(52, 52);
     }
 
     public void run() {

@@ -18,7 +18,7 @@ public class SceneStage1 extends Scene {// khoi tao doi tuong o day
 
         GameObject.recycle(Background.class);
         this.tank = GameObject.recycle(Tank.class);
-        tank.position.set(280,308);
+        tank.position.set(9* Settings.WAY_SIZE,25 * Settings.WAY_SIZE);
 
         this.enemyType1 = GameObject.recycle(EnemyType1.class);
         enemyType1.position.set(Settings.WAY_SIZE*5, Settings.WAY_SIZE*5);

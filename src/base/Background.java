@@ -17,7 +17,8 @@ public class Background extends GameObject {
 
     public Background(){
         tileSize = 28;
-        String s = "assets\\maps\\testmap.txt";
+        //String s = "assets\\maps\\testmap.txt";
+        String s = "assets\\maps\\map_2.txt";
         this.tileSize = tileSize;
         try {
             BufferedReader br = new BufferedReader(new FileReader(s));
@@ -52,7 +53,6 @@ public class Background extends GameObject {
             g.drawLine(0, i * Settings.WAY_SIZE
                     , Settings.SCREEN_WIDHT, i * Settings.WAY_SIZE);
         }
-
     }*/
 
     @Override
@@ -61,8 +61,6 @@ public class Background extends GameObject {
         BufferedImage imageDa = SpriteUtils.loadImage("assets/maps/item_built_map/ConcreteOrig.png");
         BufferedImage imageRung = SpriteUtils.loadImage("assets/maps/item_built_map/ForestOrig.png");
         BufferedImage imageWater = SpriteUtils.loadImage("assets/maps/item_built_map/WaterOrig.png");
-
-
         super.render(g);
         for (int row = 0; row < mapHeight; row++) {
             for (int col = 0; col < mapWidth; col++) {
