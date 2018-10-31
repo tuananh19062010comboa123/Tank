@@ -6,6 +6,7 @@ import base.Settings;
 import base.enemy.EnemyType1;
 import base.player.Tank;
 import base.wall.Wall;
+import base.wall.WallManagement;
 
 public class SceneStage1 extends Scene {// khoi tao doi tuong o day
     @Override
@@ -17,6 +18,7 @@ public class SceneStage1 extends Scene {// khoi tao doi tuong o day
     public void init() {
 
         GameObject.recycle(Background.class);
+      //  GameObject.recycle(WallManagement.class);
         this.tank = GameObject.recycle(Tank.class);
         tank.position.set(9* Settings.WAY_SIZE,25 * Settings.WAY_SIZE);
 
@@ -32,7 +34,7 @@ public class SceneStage1 extends Scene {// khoi tao doi tuong o day
            wall.position.set(154 + Settings.WAY_SIZE, 70 + Settings.WAY_SIZE);// 168 - 84 : meo hiu sao phai tru di 0.5.wayzize
        }*/
 
-        Wall wall = GameObject.recycle(Wall.class);
+       /* Wall wall = GameObject.recycle(Wall.class);
         wall.position.set(154,70);// 168 - 84 : meo hiu sao phai tru di 0.5.wayzize
 
         Wall wall1 = GameObject.recycle(Wall.class);
@@ -42,7 +44,7 @@ public class SceneStage1 extends Scene {// khoi tao doi tuong o day
         wall2.position.set(154,70+Settings.WAY_SIZE);
 
         Wall wall3 = GameObject.recycle(Wall.class);
-        wall3.position.set(154+Settings.WAY_SIZE,70+Settings.WAY_SIZE);
+        wall3.position.set(154+Settings.WAY_SIZE,70+Settings.WAY_SIZE);*/
 
 
     }

@@ -4,11 +4,12 @@ import base.GameObject;
 import base.Vector2D;
 import base.player.Tank;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 
-public class WallManagement extends ArrayList<GameObject> {
+public class WallManagement extends GameObject {
     public WallManagement(){
         int mapWidth=0;
         int mapHeight=0;
@@ -35,7 +36,6 @@ public class WallManagement extends ArrayList<GameObject> {
             e.printStackTrace();
         }
 
-
             for (int row = 0; row < mapHeight; row++) {
                 for (int col = 0; col < mapWidth; col++) {
                     int rc = map[row][col];
@@ -43,27 +43,28 @@ public class WallManagement extends ArrayList<GameObject> {
                     Brick edee = (Brick) GameObject.recycle(Brick.class);
                     edee.destroy();
                 }
+
                     if (rc == 1) {
                         Brick brick = (Brick) GameObject.recycle(Brick.class);
 
                         brick.position = new Vector2D(col * tileSize,row * tileSize);
 
-                        add(brick);
+                       GameObject.gameObjects.add(brick);
                     }
                     if (rc == 2) {
                         Stone stone = (Stone)GameObject.recycle(Stone.class);
                         stone.position = new Vector2D(col * tileSize,row * tileSize);
-                        add(stone);
+                        GameObject.gameObjects.add(stone);
                     }
                     if (rc == 3) {
                         Forest forest = (Forest)GameObject.recycle(Forest.class);
                         forest.position = new Vector2D(col * tileSize,row * tileSize);
-                        add(forest);
+                        GameObject.gameObjects.add(forest);
                     }
                     if (rc == 5) {
                         Water water = (Water)GameObject.recycle(Water.class);
                         water.position = new Vector2D(col * tileSize,row * tileSize);
-                        add(water);
+                        GameObject.gameObjects.add(water);
                     }
 
                     // g.fillRect( col * tileSize,  row * tileSize, tileSize, tileSize);

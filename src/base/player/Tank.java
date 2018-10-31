@@ -11,10 +11,10 @@ import base.event.KeyEventPress;
 import base.physics.BoxCollider;
 import base.physics.Physics;
 import base.renderer.SingleImageRenderer;
-import base.wall.*;
-
+import base.wall.Wall;
 import java.awt.image.BufferedImage;
 
+import game.GameWindow;
 import tklibs.SpriteUtils;
 
 public class Tank extends GameObject implements Physics {
@@ -25,10 +25,8 @@ public class Tank extends GameObject implements Physics {
     float currentX = 0.0F;
     float currentY = 0.0F;
     boolean[] way = new boolean[]{false,false,false,false};//up down left right
-    WallManagement arr;
 
     public Tank() {
-        arr= new WallManagement( );;
         BufferedImage image = SpriteUtils.loadImage("assets/tank_image/tank2.PNG");
         this.position = new Vector2D((float)Settings.START_PLAYER_POSITION_X, (float)Settings.START_PLAYER_POSITION_Y);
         this.renderer = new SingleImageRenderer(image);
@@ -40,7 +38,7 @@ public class Tank extends GameObject implements Physics {
     public void run() {
 
 
-        if (!this.checkIntersects() || !this.checkIntersectsWall()) {
+        if (!this.checkIntersects()) {
             this.currentX = this.position.x;
             this.currentY = this.position.y;
         }
@@ -48,7 +46,11 @@ public class Tank extends GameObject implements Physics {
         if (KeyEventPress.isUpPress) {
             BufferedImage imageUp = SpriteUtils.loadImage("assets/tank_image/tank2.PNG");
             ((SingleImageRenderer) this.renderer).image = imageUp;
+            float originalPosition = this.position.y;
+            System.out.println("originalPosition : "+originalPosition);
             this.position.addThis(0.0F, -4.0F);
+            float currentPosition = this.position.y;
+            System.out.println("currentPosition : "+currentPosition);
             this.way=new boolean[]{true,false,false,false};
         } else if (KeyEventPress.isDownPress) {
             BufferedImage imageDown = SpriteUtils.loadImage("assets/tank_image/tank2_down.PNG");
@@ -67,34 +69,23 @@ public class Tank extends GameObject implements Physics {
             this.way=new boolean[]{false,false,false,true};
         }
 
+
         boolean fireCounterRun = this.fireCounter.run();
         if (KeyEventPress.isFirePress && fireCounterRun) {
             this.fire();
         }
         this.position.addThis(this.velocity);
 
-        if (this.checkIntersects()|| this.checkIntersectsWall()) {
+        if (this.checkIntersects()) {
             this.position.x = this.currentX;
             this.position.y = this.currentY;
         }
     }
 
     private boolean checkIntersects() {
+        Wall wall = (Wall)GameObject.intersect(Wall.class, this);
         Enemy enemy = (Enemy)GameObject.intersect(Enemy.class, this);
-        return   enemy != null;
-    }
-    private boolean checkIntersectsWall(){
-        for (GameObject i :
-                arr) {
-            if(i instanceof Brick || i instanceof Stone || i instanceof Water){
-                Brick brick = (Brick)GameObject.intersect(Brick.class, this);
-                Stone stone = (Stone)GameObject.intersect(Stone.class, this);
-                Water water = (Water)GameObject.intersect(Water.class, this);
-                return brick!=null || stone!=null || water!=null;
-            }
-
-        }
-        return false;
+        return wall != null || enemy != null;
     }
 
     private void fire() {
